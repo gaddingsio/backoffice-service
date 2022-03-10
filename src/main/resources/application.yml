@@ -1,0 +1,23 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
+
+cloud:
+  aws:
+    region:
+      static: eu-central-1
+    stack:
+      auto: false
+      enabled: false
+    credentials:
+      secretKey: ABC
+      accessKey: XYZ
+
+
+s3:
+  bucket: customers
+
+sqs:
+  queue: customers-queue

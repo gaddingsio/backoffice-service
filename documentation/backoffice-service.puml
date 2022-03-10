@@ -1,0 +1,20 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+!include FONTAWESOME/cube.puml
+!include FONTAWESOME/amazon.puml
+
+title: backoffice-service
+
+  Boundary(sqs, "SQS") {
+      System_Ext(customerQueue, "customer-queue")
+  }
+  Container(backofficeService, "Backoffice service", "java service", "Extracts customers and saves them to S3", $sprite="cube")
+  System_Ext(s3, "S3", "Bucket: customers", "", $sprite="amazon")
+
+  Rel_U(backofficeService, customerQueue, "consumes CustomerCreated events")
+  Rel_D(backofficeService, s3, "writes customer data")
+
+  SHOW_DYNAMIC_LEGEND()
+@enduml
