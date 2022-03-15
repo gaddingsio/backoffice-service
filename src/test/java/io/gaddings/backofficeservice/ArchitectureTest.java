@@ -16,9 +16,9 @@ public class ArchitectureTest {
     @ArchTest
     void hexagonalArchitecture(JavaClasses classes) {
         layeredArchitecture()
-            .layer("adapter").definedBy("io.gaddings.backofficeservice.adapter..")
-            .layer("application").definedBy("io.gaddings.backofficeservice.application..")
-            .layer("domain").definedBy("io.gaddings.backofficeservice.domain..")
+            .layer("adapter").definedBy("..adapter..")
+            .layer("application").definedBy("..application..")
+            .layer("domain").definedBy("..domain..")
             .whereLayer("adapter").mayNotBeAccessedByAnyLayer()
             .whereLayer("application").mayOnlyBeAccessedByLayers("adapter")
             .whereLayer("domain").mayOnlyBeAccessedByLayers("adapter", "application")
@@ -31,7 +31,7 @@ public class ArchitectureTest {
 
     @ArchTest
     static final ArchRule ADAPTERS_DO_NOT_DEPEND_ON_ONE_ANOTHER = slices()
-        .matching("io.gaddings.backofficeservice.adapter..").namingSlices("$1 '$2'")
+        .matching("..adapter.(**)")
         .should().notDependOnEachOther()
         .as("Adapters do not depend on one another")
         .because("Adapters should only depend on one external system; depending on other adapters is likely to imply pulling dependencies towards other external systems");

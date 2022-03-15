@@ -59,7 +59,6 @@ class BackofficeServiceIT {
         registry.add("s3.bucket", () -> BUCKET_NAME);
     }
 
-    @SneakyThrows
     @Test
     void integrationTest() {
         queueMessagingTemplate.send(QUEUE_NAME, new GenericMessage<>("""
